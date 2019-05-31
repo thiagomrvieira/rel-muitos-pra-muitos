@@ -45,8 +45,8 @@ Route::get('/projeto_desenvolvedores', function () {
     $projetos = Projeto::with('desenvolvedores')->get();
 
     foreach ($projetos as $p) {
-        echo "<p> Nome do projeto:". $p->nome ."</p>";
-        echo "<p> estimativas de horas do projeto:". $p->estimativa_horas ."</p>";
+        echo "<p><b> Nome do projeto:</b> ". $p->nome ."</p>";
+        echo "<p><b> Estimativas de horas do projeto: </b>". $p->estimativa_horas ."</p>";
         if (count($p->desenvolvedores) > 0) {
             echo "Desenvolvedores: <br>";
             echo "<ul>";
@@ -64,4 +64,19 @@ Route::get('/projeto_desenvolvedores', function () {
     }
 
     //return $desenvolvedores->toJson();
+});
+
+Route::get('/alocar', function () {
+    $projeto = Projeto::find(4);
+    if (isset($projeto)) {
+        // Alocando apenas um:
+        // $projeto->desenvolvedores()->attach(1, ['horas_semanais' => 50]);        
+        
+        // Para alocar vários
+        $projeto->desenvolvedores()->attach([
+            2 => ['horas_semanais' => 30],
+            3 => ['horas_semanais' => 34],
+        ]);
+    
+    }
 });
