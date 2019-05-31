@@ -80,3 +80,16 @@ Route::get('/alocar', function () {
     
     }
 });
+
+
+Route::get('/desalocar', function () {
+    $projeto = Projeto::find(4);
+    if (isset($projeto)) {
+        $projeto->desenvolvedores()->detach([1,2,3]);        
+        
+        // ou
+        // $projeto->desenvolvedores()->detach(1);   
+        // $projeto->desenvolvedores()->detach(2);   
+        // $projeto->desenvolvedores()->detach(3);   
+    }
+});
